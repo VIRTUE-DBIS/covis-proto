@@ -1,0 +1,11 @@
+.idea/
+*.protodep
+AssemblyInfo*
+*.cache
+*.dll
+*pdb
+*.nuget*
+*.json
+covis-proto/bin
+*.txt
+covis-proto.AssemblyInfo.cs

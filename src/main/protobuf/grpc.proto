@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option java_package = "ch.unibas.dmi.dbis.covis.grpc";
+
+option java_outer_classname = "CovisGrpc";
+
+
+service CovisService {
+  rpc Ping (google.protobuf.Empty) returns (google.protobuf.Empty) {
+  }
+
+  //bidirectional update streaming
+  rpc Sync (stream UpdateMessage) returns (stream UpdateMessage) {
+  }
+
+}
+
+message UpdateMessage {
+  int64 timestamp = 1;  //not used
+  oneof update {
+    Syncable syncable = 20;
+    SyncableContainer container = 21;
+    DisconnectMessage disconnect = 22;
+    DeleteContainerMessage deleteContainer = 23;
+    DeleteSyncableMessage deleteSyncable = 24;
+    AudioUpdateMessage audioUpdate = 25;
+  }
+}
+
+message DeleteContainerMessage {
+  string containerUUID = 1;
+}
+
+message DeleteSyncableMessage {
+  string syncableUUID = 1;
+}
+
+//if a client disconnects, he sends all containers which should be removed
+message DisconnectMessage {
+  repeated SyncableContainer containers = 1;
+}
+
+message AudioUpdateMessage {
+  string containerUUID = 1;
+  bytes audioFrame = 2;
+}
+
+
+message Vec3 {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+}
+
+message Vec4 {
+  double w = 1;
+  double x = 2;
+  double y = 3;
+  double z = 4;
+}
+
+// Syncables cannot exist without a corresponding container
+message Syncable {
+  string uuid = 1;
+  Vec3 position = 2;
+  Vec4 rotation = 3;
+  Vec3 velocity = 4;
+  Vec3 angularVelocity = 5;
+}
+
+enum SyncableContainerType {
+  UNKNOWN = 0;
+  VIRTUAL_PERSON = 1;
+  REAL_PERSON = 2;
+  TRACKER = 3;
+  VIRUAL_ASSISTANT = 4;
+}
+
+message SyncableContainer {
+  string uuid = 1;
+  //used to render container
+  string model = 2;
+  //a container can also only have one syncable, e.g. a tracker
+  map<string, Syncable> syncables = 3;
+  SyncableContainerType type = 4;
+  //names are useful for e.g. virtual assistants
+  string name = 5;
+}
