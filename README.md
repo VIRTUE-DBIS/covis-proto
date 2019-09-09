@@ -1,6 +1,6 @@
 # Collaborative Virtual Spaces (covis) - Protobuf Definition
 
-This Repository defines the services & messages to synchronize different virtual & physical spaces and objects in a VR context.
+This Repository defines the services & messages to synchronize different virtual & physical spaces and objects in a VR context. Use both by the [covis-server](https://github.com/VIRTUE-DBIS/covis-server) and [VREP](https://github.com/VIRTUE-DBIS/virtual-exhibition-presenter)
 
 ## Code Generation
 
