@@ -1,8 +1,8 @@
-# Collaborative Virtual Spaces (covis) - Protobuf Code definition
+# Collaborative Virtual Spaces (covis) - Protobuf Definition
 
-This Repository defines the services & messages to synchronize different virtual & physical spaces in a VR context.
+This Repository defines the services & messages to synchronize different virtual & physical spaces and objects in a VR context.
 
-## Code generation
+## Code Generation
 
 ### Java
 Use the normal protobuf jvm gradle combo. Consider [covis-server](https://github.com/VIRTUE-DBIS/covis-server) as an example. Not done in this repo.
